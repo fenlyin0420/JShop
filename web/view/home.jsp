@@ -25,24 +25,26 @@
         <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             分类
         </button>
-        <div class="dropdown-menu" aria-labelledby="categoryMenu">
-            <c:forEach var="category" items="${categories}">
-                <a class="dropdown-item" href="ProductServlet?categoryId=${category.id}">${category.category_name}</a>
-            </c:forEach>
-        </div>
+<%--        <div class="dropdown-menu" aria-labelledby="categoryMenu">--%>
+<%--            <c:forEach var="category" items="${categories}">--%>
+<%--&lt;%&ndash;                <a class="dropdown-item" href="ProductServlet?categoryId=${category.id}">${category.category_name}</a>&ndash;%&gt;--%>
+<%--            </c:forEach>--%>
+<%--        </div>--%>
     </div>
 </nav>
 
 <!-- 广告轮播区域 -->
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="max-width: 600px; margin: auto;">
+    <div class="carousel-inner" style="height: 300px;">
         <div class="carousel-item active">
-            <img class="d-block w-100" src="../Assets/ad1.jpg" alt="广告1">
+            <img class="d-block w-100 img-fluid" src="../Assets/ad1.jpg" alt="广告1" style="object-fit: cover; height: 100%;">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="../Assets/ad2.jpg" alt="广告2">
+            <img class="d-block w-100 img-fluid" src="../Assets/ad2.jpg" alt="广告2" style="object-fit: cover; height: 100%;">
         </div>
+        <!-- 可以继续添加更多的轮播项 -->
     </div>
+    <!-- 轮播控制按钮 -->
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">上一页</span>
@@ -56,6 +58,7 @@
 <!-- 商品展示区域 -->
 <div class="container">
     <div class="row">
+        <jsp:useBean id="products" scope="request" type="java.util.List"/>
         <c:forEach var="product" items="${products}">
             <div class="col-md-3">
                 <div class="card">

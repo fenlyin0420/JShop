@@ -1,113 +1,48 @@
-//package com.fenlyin.utils;
-//
-//import java.sql.*;
-//
-//public class DBConnection {
-//    private static final String driver = "com.mysql.cj.jdbc.Driver";
-//    private static final String URL = "jdbc:mysql://localhost:3306/Jshop?allowPublicKeyRetrieval=true&useSSL=false";
-//    private static final String USERNAME = "fenlyin";
-//    private static final String PASSWORD = "";
-//
-//    // 静态代码块
-//    static {
-//        try {
-////            Class.forName(driver);
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//        } catch (NoClassDefFoundError e) {
-//            throw new RuntimeException("nima", e);
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException("MySQL JDBC driver not found in the classpath", e);
-//        }
-//    }
-//
-//    public static Connection getConnection() throws SQLException {
-//        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//    }
-//
-//    public static void close(Connection connection, Statement statement, ResultSet resultSet) {
-//        if(resultSet!=null){
-//            try {
-//                resultSet.close();
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        if(statement!=null){
-//            try {
-//                statement.close();
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//
-//        if(connection!=null){
-//            try {
-//                connection.close();
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//    }
-//}
 package com.fenlyin.utils;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
-import java.util.Properties;
 
-/**
- * 工具类：读取数据库属性文件、加载驱动、获取连接、关闭资源
- */
-public class DBUtil {
-    private static String driver=null;
-    private static String url=null;
-    private static String user=null;
-    private static String password=null;
+public class DBConnection {
+    private static final String driver = "com.mysql.cj.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://localhost:3306/Jshop?allowPublicKeyRetrieval=true&useSSL=false";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "811324";
 
-    private static Connection conn=null;
+    // 静态代码块
     static {
         try {
-            InputStream in=DBUtil .class.getClassLoader().getResourceAsStream("db.properties");
-            Properties properties=new Properties();
-            properties.load(in);
-//            driver=properties.getProperty("driver");
-            driver=properties.getProperty("com.mysql.jdbc.cj.Driver");
-            url=properties.getProperty("url");
-            user= properties.getProperty("user");
-            password=properties.getProperty("password");
-            //2、加载驱动
             Class.forName(driver);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (NoClassDefFoundError e) {
+            throw new RuntimeException("nima", e);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("MySQL JDBC driver not found in the classpath", e);
         }
     }
 
-    //获取连接
-    public static Connection getConnection(){
-        //建立连接
-        try {
-            if(conn==null||conn.isClosed()){
-                conn= DriverManager.getConnection(url,user,password);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return conn;
+    /**
+     * 建立数据库连接
+     * @return Connection Object
+     * @throws SQLException 数据库异常
+     */
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
-    //关闭资源
-    public static void close(Connection connection, Statement statement, ResultSet resultSet){
-        if(resultSet!=null){
+    /**
+     * 关闭连接，释放资源
+     * @param connection 连接对象
+     * @param statement SQL语句对象
+     * @param resultSet SQL查询结果
+     */
+    public static void close(Connection connection, Statement statement, ResultSet resultSet) {
+        if (resultSet != null) {
             try {
                 resultSet.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
-        if(statement!=null){
+        if (statement != null) {
             try {
                 statement.close();
             } catch (SQLException e) {
@@ -115,7 +50,7 @@ public class DBUtil {
             }
         }
 
-        if(connection!=null){
+        if (connection != null) {
             try {
                 connection.close();
             } catch (SQLException e) {

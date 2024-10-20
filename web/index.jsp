@@ -6,9 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<form action="LoginServlet" method="post">
-    用户名: <input type="text" name="username" required><br>
-    密码: <input type="password" name="password" required><br>
-    <input type="submit" value="登录">
-</form>
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+</head>
+<body>
+<h1>欢迎来到我们的网站</h1>
+<div>
+    <button onclick="window.location.href='view/login.jsp';">登录</button>
+    <button onclick="window.location.href='view/register.jsp';">注册</button>
+</div>
+</body>
+</html>
